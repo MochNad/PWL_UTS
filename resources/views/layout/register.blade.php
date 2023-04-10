@@ -18,10 +18,10 @@
 <div class="register-box">
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="{{ asset('assets/index2.html') }}" class="h1"><b>Admin</b>LTE</a>
+      <a href="{{ asset('assets/index2.html') }}" class="h1"><b>Register</b></a>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Register a new membership</p>
+
 
       <form action="{{ asset('assets/index.html') }}" method="post">
         <div class="input-group mb-3">
@@ -73,18 +73,9 @@
         </div>
       </form>
 
-      <div class="social-auth-links text-center">
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i>
-          Sign up using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i>
-          Sign up using Google+
-        </a>
-      </div>
+      
 
-      <a href="login.html" class="text-center">I already have a membership</a>
+      <a href="{{url('/login')}}" class="text-center">Saya sudah punya akun</a>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->
