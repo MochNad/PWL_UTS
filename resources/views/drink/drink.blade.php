@@ -22,7 +22,7 @@
 <!-- Default box -->
 <div class="container-fluid">
   <a href="{{url('drink/create')}}" class="btn btn-sm btn-success float-right my-2"><i class="fas fa-plus pr-1"></i>Tambah Data</a>
-  <form action="search" method="GET">
+  <form action="drink/search" method="GET">
     @csrf
     <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Search" name="keyword">

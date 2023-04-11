@@ -26,8 +26,8 @@ Route::get('/register', [RegisterController::class, 'showRegisterForm']);
 
 Auth::routes();
 Route::middleware(['auth'])->group(function(){
-    Route::get('/search', [FoodController::class, 'search']);
-    Route::get('/search', [DrinkController::class, 'search']);
+    Route::get('/food/search', [FoodController::class, 'search']);
+    Route::get('/drink/search', [DrinkController::class, 'search']);
     Route::resource('/dashboard', DashboardController::class);
     Route::resource('/food', FoodController::class)->parameter('food', 'id');
     Route::resource('/drink', DrinkController::class);

@@ -15,7 +15,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $food = Food::paginate(1);
+        $food = Food::paginate(10);
         $countFood = Food::count();
         $countDrink = Drink::count();
         return view('food.food', ['food' => $food])
@@ -53,20 +53,17 @@ class FoodController extends Controller
         'harga' => 'required|numeric',
     ]);
 
-    // Mendapatkan ID terakhir dari database jika ada, jika tidak ada maka mengembalikan nilai 0
     $lastId = Food::latest()->first() ? Food::latest()->first()->id : 0;
 
-    // Membuat kode baru dengan format "f" diikuti oleh ID terakhir + 1
-    $kode = 'f' . ($lastId + 1);
+    $kode = 'FOOD-' . ($lastId + 1);
 
-    // Menyimpan data ke dalam database
     Food::create([
         'kode' => $kode,
         'nama' => $request->input('nama'),
         'harga' => $request->input('harga'),
     ]);
 
-    return redirect('food')->with('success', 'Mahasiswa Berhasil Ditambahkan');
+    return redirect('food')->with('success', 'Food Berhasil Ditambahkan');
 }
 
     /**
@@ -89,9 +86,13 @@ class FoodController extends Controller
     public function edit($id)
     {
         $food = Food::find($id);
+        $countFood = Food::count();
+        $countDrink = Drink::count();
         return view('food.create_food')
                 ->with('food', $food)
-                ->with('url_form', url('/food/'. $id));
+                ->with('url_form', url('/food/'. $id))
+                ->with('countFood', $countFood)
+                ->with('countDrink', $countDrink);
     }
 
     /**
@@ -134,8 +135,7 @@ class FoodController extends Controller
         $keyword = $request->input('keyword');
         $column = $request->input('column');
 
-        // Menyusun query berdasarkan kolom yang dipilih
-        $query = Food::query(); // Ganti YourModel dengan model yang sesuai
+        $query = Food::query();
 
         if ($column == 'Kode') {
             $query->where('kode', 'LIKE', "%$keyword%");
@@ -145,10 +145,10 @@ class FoodController extends Controller
             $query->where('harga', 'LIKE', "%$keyword%");
         }
 
-        $results = $query->get(); // Mengambil hasil query
+        $results = $query->get();
 
         return view('food.search_food', ['results' => $results])
             ->with('countFood', $countFood)
-            ->with('countDrink', $countDrink); // Ganti 'search.results' dengan view yang sesuai untuk menampilkan hasil pencarian
+            ->with('countDrink', $countDrink);
     }
 }

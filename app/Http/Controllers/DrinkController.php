@@ -15,7 +15,7 @@ class drinkController extends Controller
      */
     public function index()
     {
-        $drink = Drink::paginate(1);
+        $drink = Drink::paginate(10);
         $countFood = Food::count();
         $countDrink = Drink::count();
         return view('drink.drink', ['drink' => $drink])
@@ -52,13 +52,10 @@ class drinkController extends Controller
         'harga' => 'required|numeric',
     ]);
 
-    // Mendapatkan ID terakhir dari database jika ada, jika tidak ada maka mengembalikan nilai 0
     $lastId = Drink::latest()->first() ? Drink::latest()->first()->id : 0;
 
-    // Membuat kode baru dengan format "f" diikuti oleh ID terakhir + 1
-    $kode = 'd' . ($lastId + 1);
+    $kode = 'DRINK-' . ($lastId + 1);
 
-    // Menyimpan data ke dalam database
     Drink::create([
         'kode' => $kode,
         'nama' => $request->input('nama'),
@@ -88,9 +85,13 @@ class drinkController extends Controller
     public function edit($id)
     {
         $drink = Drink::find($id);
+        $countFood = Food::count();
+        $countDrink = Drink::count();
         return view('drink.create_drink')
                 ->with('drink', $drink)
-                ->with('url_form', url('/drink/'. $id));
+                ->with('url_form', url('/drink/'. $id))
+                ->with('countFood', $countFood)
+                ->with('countDrink', $countDrink);
     }
 
     /**
@@ -134,8 +135,7 @@ class drinkController extends Controller
         $keyword = $request->input('keyword');
         $column = $request->input('column');
 
-        // Menyusun query berdasarkan kolom yang dipilih
-        $query = Drink::query(); // Ganti YourModel dengan model yang sesuai
+        $query = Drink::query();
 
         if ($column == 'Kode') {
             $query->where('kode', 'LIKE', "%$keyword%");
@@ -145,11 +145,10 @@ class drinkController extends Controller
             $query->where('harga', 'LIKE', "%$keyword%");
         }
 
-        $results = $query->get(); // Mengambil hasil query
+        $results = $query->get();
 
         return view('drink.search_drink', ['results' => $results])
             ->with('countFood', $countFood)
             ->with('countDrink', $countDrink);
-            // Ganti 'search.results' dengan view yang sesuai untuk menampilkan hasil pencarian
     }
 }

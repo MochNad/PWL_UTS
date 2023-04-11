@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
-      <h1>Dashboard</h1>
+        <h1>Dashboard</h1>
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
@@ -28,7 +28,6 @@
       <div class="small-box bg-info">
         <div class="inner">
           <h3>{{ $countFood }}</h3>
-
           <p>Foods</p>
         </div>
         <div class="icon">
@@ -43,7 +42,6 @@
       <div class="small-box bg-info">
         <div class="inner">
           <h3>{{ $countDrink }}</h3>
-
           <p>Drinks</p>
         </div>
         <div class="icon">
