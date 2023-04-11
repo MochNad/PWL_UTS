@@ -17,9 +17,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    use HasFactory;
+    protected $table = 'users';
+    
     protected $fillable = [
+        'username',
         'name',
         'email',
+        'email_verified_at',
         'password',
     ];
 

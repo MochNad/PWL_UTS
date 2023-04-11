@@ -22,12 +22,22 @@
     </div>
     <div class="card-body">
 
-
-      <form action="{{ url('/register') }}" method="post">
+      <form method="POST" action="register">
         @csrf
-        {!! (isset($usr))? method_field('PUT') : '' !!}
+        {!! (isset($usr))? method_field('PUT') : ''!!}
         <div class="input-group mb-3">
-          <input name="name" type="text" class="form-control @error('nim') is-invalid @enderror" value="{{ isset($usr)? $usr->name : old('name') }}" placeholder="Full name">
+          <input class="form-control @error('username') is-invalid @enderror" value="{{ isset($usr)? $usr->username : old('username') }}" name="username" type="text" placeholder="Username">
+          @error('username')
+            <span class="error invalid-feedback">{{ $message }} </span>
+          @enderror
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input class="form-control @error('name') is-invalid @enderror" value="{{ isset($usr)? $usr->name : old('name') }}" name="name" type="text" placeholder="Full name">
           @error('name')
             <span class="error invalid-feedback">{{ $message }} </span>
           @enderror
@@ -38,10 +48,10 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input name="username" type="text" class="form-control @error('nim') is-invalid @enderror" value="{{ isset($usr)? $usr->username : old('username') }}" placeholder="Username">
-          @error('username')
-              <span class="error invalid-feedback">{{ $message }} </span>
-            @enderror
+          <input class="form-control @error('email') is-invalid @enderror" value="{{ isset($usr)? $usr->name : old('email') }}" name="email" type="email" placeholder="Email">
+          @error('email')
+            <span class="error invalid-feedback">{{ $message }} </span>
+          @enderror
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -49,32 +59,20 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
+          <input class="form-control @error('password') is-invalid @enderror" value="{{ isset($usr)? $usr->password : old('password') }}" name="password" type="password" placeholder="Password">
+          @error('password')
+            <span class="error invalid-feedback">{{ $message }} </span>
+          @enderror
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
-        
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-              <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-          </div>
-          <!-- /.col -->
+        <div class="form-group">
+          <button class="btn btn-primary btn-block">Register</button>
         </div>
       </form>
-
-      
 
       <a href="{{url('/login')}}" class="text-center">Saya sudah punya akun</a>
     </div>

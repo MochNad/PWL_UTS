@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,14 +23,14 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RedirectsUsers;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -40,11 +40,6 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-    }
-
-    public function showRegistrationForm()
-    {
-        return view('layout.register');
     }
 
     /**
@@ -57,8 +52,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:4', 'confirmed'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -69,27 +64,29 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
 
-    public function create()
+     public function showRegistrationForm()
+     {
+         return view('layout.register');
+     }
+
+    public function register(Request $request)
     {
-        return view('auth.register');
+        $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:4'],
+        ]);
+
+        $hashedPassword = Hash::make($request->input('password'));
+
+        User::create([
+            'username' => $request->input('username'),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $hashedPassword,
+        ]);
+
+        return redirect('login')->with('success', 'User Berhasil Ditambahkan');
     }
-
-public function store(Request $request)
-{
-    $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'username' => ['required', 'string', 'max:255', 'unique:users'],
-        'password' => ['required', 'string', 'min:4', 'confirmed']
-    ]);
-
-    $user = User::create([
-        'name' => $request->name,
-        'username' => $request->username,
-        'password' => Hash::make($request->password),
-    ]);
-
-    auth()->login($user);
-
-    return redirect('/home');
-}
 }
