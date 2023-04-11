@@ -17,11 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+Route::get('/food', function () {
+    return view('food');
+});
+
+Route::get('/drink', function () {
+    return view('drink');
 });
 
 Route::get('/login', [LoginController::class, 'index']);
 
 Route::get('/register', [RegisterController::class, 'index']);
+
 
