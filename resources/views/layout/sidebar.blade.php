@@ -13,7 +13,7 @@
           <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -36,14 +36,14 @@
                 <a href="{{ url('/food') }}" class="nav-link">
                   <i class="fas fa-hamburger pr-3"></i>
                   <p>Food</p>
-                  <span class="badge badge-info right">6</span>
+                  <span class="badge badge-info right">{{ $countFood }}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ url('/drink') }}" class="nav-link">
                   <i class="fas fa-cocktail pr-3"></i>
                   <p>Drink</p>
-                  <span class="badge badge-info right">9</span>
+                  <span class="badge badge-info right">{{ $countDrink }}</span>
                 </a>
               </li>
             </ul>

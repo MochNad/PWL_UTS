@@ -4,12 +4,12 @@
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
-      <h1>Drink</h1>
+      <h1>Food</h1>
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item"><a href="#">Menu</a></li>
-        <li class="breadcrumb-item active">Drink</li>
+        <li class="breadcrumb-item active">Food</li>
       </ol>
     </div>
   </div>
@@ -21,8 +21,8 @@
 
 <!-- Default box -->
 <div class="container-fluid">
-  <a href="{{url('mahasiswa/create')}}" class="btn btn-sm btn-success float-right my-2"><i class="fas fa-plus pr-1"></i>Tambah Data</a>
-  <form action="" method="GET">
+  <a href="{{url('food/create')}}" class="btn btn-sm btn-success float-right my-2"><i class="fas fa-plus pr-1"></i>Tambah Data</a>
+  <form action="search" method="GET">
     @csrf
     <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Search" name="keyword">
@@ -46,18 +46,17 @@
                 <th>Action</th>
               </tr>
         </thead>
-        {{-- <tbody>
-          @if ($mhs->count() > 0)
-            @foreach ($mhs as $i => $m)
+        <tbody>
+          @if ($food->count() > 0)
+            @foreach ($food as $i => $f)
             <tr>
                 <td>{{++$i}}</td>
-                <td>{{$m->nim}}</td>
-                <td>{{$m->nama}}</td>
-                <td>{{$m->jk}}</td>
-                <td>{{$m->hp}}</td>
+                <td>{{$f->kode}}</td>
+                <td>{{$f->nama}}</td>
+                <td>{{$f->harga}}</td>
                 <td>
-                  <a href="{{ url('/mahasiswa/'.$m->id.'/edit/') }}" class="btn btn-sm btn-warning"><i class="fas fa-edit pr-1"></i>Edit</a>
-                  <form method="POST" action="{{ url('/mahasiswa/'.$m->id)}}" class="d-inline pl-2">
+                  <a href="{{ url('/food/'.$f->id.'/edit/') }}" class="btn btn-sm btn-warning"><i class="fas fa-edit pr-1"></i>Edit</a>
+                  <form method="POST" action="{{ url('/food/'.$f->id)}}" class="d-inline pl-2">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash pr-1"></i>Hapus</button>
@@ -68,14 +67,18 @@
           @else
               <tr><td colspan="6" class="text-center">Data tidak ada</td></tr>
           @endif
-        </tbody> --}}
+        </tbody>
         <tfoot>
           <tr>
-            <th colspan="4"></th>
-            <th>Drink</th>
+            <th colspan="6">
+              <div class="d-flex justify-content-center mt-2">
+                {{ $food->links() }}
+              </div>
+            </th>
           </tr>
         </tfoot>
       </table>
+      
   <!-- /.row -->
   <!-- Main row -->
   

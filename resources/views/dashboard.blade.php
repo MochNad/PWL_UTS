@@ -27,7 +27,7 @@
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
-          <h3>6</h3>
+          <h3>{{ $countFood }}</h3>
 
           <p>Foods</p>
         </div>
@@ -42,7 +42,7 @@
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
-          <h3>9</h3>
+          <h3>{{ $countDrink }}</h3>
 
           <p>Drinks</p>
         </div>
