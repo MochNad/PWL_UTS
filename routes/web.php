@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/food/search', [FoodController::class, 'search']);
     Route::get('/drink/search', [DrinkController::class, 'search']);
     Route::resource('/dashboard', DashboardController::class);
+    Route::get('/', [DashboardController::class, 'index']);
     Route::resource('/food', FoodController::class);
     Route::resource('/drink', DrinkController::class);
 });
