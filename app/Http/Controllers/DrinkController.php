@@ -142,7 +142,7 @@ class drinkController extends Controller
         } elseif ($column == 'Nama') {
             $query->where('nama', 'LIKE', "%$keyword%");
         } elseif ($column == 'Harga') {
-            $query->where('harga', 'LIKE', "%$keyword%");
+            $query->where('harga', 'LIKE', "$keyword");
         }
 
         $results = $query->get();

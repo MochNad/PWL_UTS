@@ -22,14 +22,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/logout', [LoginController::class, 'logout']);
 
-Route::get('/register', [RegisterController::class, 'showRegisterForm']);
-
 Auth::routes();
 Route::middleware(['auth'])->group(function(){
     Route::get('/food/search', [FoodController::class, 'search']);
     Route::get('/drink/search', [DrinkController::class, 'search']);
     Route::resource('/dashboard', DashboardController::class);
-    Route::resource('/food', FoodController::class)->parameter('food', 'id');
+    Route::resource('/food', FoodController::class);
     Route::resource('/drink', DrinkController::class);
 });
 
