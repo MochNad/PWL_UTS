@@ -124,16 +124,7 @@ class drinkController extends Controller
     {
         drink::where('id', '=', $id)->delete();
 
-        $keyword = request()->input('keyword');
-        $column = request()->input('column');
-
-        if ($keyword && $column) {
-            return redirect('/drink/search?keyword=' . $keyword . '&column=' . $column)
-                ->with('success', 'Drink Berhasil Dihapus');
-        }
-
-        return redirect('/drink')
-            ->with('success', 'Drink Berhasil Dihapus');
+        return redirect()->back();
     }
 
     public function search(Request $request)
