@@ -30,44 +30,28 @@
           @error('username')
             <span class="error invalid-feedback">{{ $message }} </span>
           @enderror
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
+          
         </div>
         <div class="input-group mb-3">
           <input class="form-control @error('name') is-invalid @enderror" value="{{ isset($usr)? $usr->name : old('name') }}" name="name" type="text" placeholder="Full name">
           @error('name')
             <span class="error invalid-feedback">{{ $message }} </span>
           @enderror
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
+          
         </div>
         <div class="input-group mb-3">
           <input class="form-control @error('email') is-invalid @enderror" value="{{ isset($usr)? $usr->name : old('email') }}" name="email" type="email" placeholder="Email">
           @error('email')
             <span class="error invalid-feedback">{{ $message }} </span>
           @enderror
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
+          
         </div>
         <div class="input-group mb-3">
           <input class="form-control @error('password') is-invalid @enderror" value="{{ isset($usr)? $usr->password : old('password') }}" name="password" type="password" placeholder="Password">
           @error('password')
             <span class="error invalid-feedback">{{ $message }} </span>
           @enderror
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
+          
         </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block">Register</button>
