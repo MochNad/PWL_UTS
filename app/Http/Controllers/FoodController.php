@@ -124,8 +124,8 @@ class FoodController extends Controller
     public function destroy($id)
     {
         Food::where('id', '=', $id)->delete();
-        return redirect('food')
-        ->with('success', 'Food Berhasil Dihapus');
+
+        return redirect()->back();
     }
 
     public function search(Request $request)
@@ -145,7 +145,8 @@ class FoodController extends Controller
             $query->where('harga', 'LIKE', "$keyword");
         }
 
-        $results = $query->get();
+        $results = $query->paginate(10);
+    $results->appends(request()->query());
 
         return view('food.search_food', ['results' => $results])
             ->with('countFood', $countFood)

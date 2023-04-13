@@ -55,11 +55,34 @@
             <td>{{ $result->harga }}</td>
             <td>
               <a href="{{ url('/food/'.$result->id.'/edit/') }}" class="btn btn-sm btn-warning"><i class="fas fa-edit pr-1"></i>Edit</a>
-              <form method="POST" action="{{ url('/food/'.$result->id)}}" class="d-inline pl-2">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash pr-1"></i>Hapus</button>
-              </form>
+              <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal{{$result->id}}"><i class="fas fa-trash pr-1"></i>Hapus</button>
+              <!-- Delete Modal -->
+              <div class="modal fade" id="deleteModal{{$result->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{$result->id}}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteModalLabel{{$result->id}}">Konfirmasi Hapus</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Anda yakin ingin menghapus {{$result->nama}} ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                      <form method="POST" action="{{ url('/food/'.$result->id) }}" class="d-inline pl-2">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Ya</button>
+                        @if(request()->input('keyword') && request()->input('column'))
+                            <input type="hidden" name="keyword" value="{{ request()->input('keyword') }}">
+                            <input type="hidden" name="column" value="{{ request()->input('column') }}">
+                        @endif
+                    </form>
+                  </div>
+                </div>
+              </div>
             </td>
           </tr>
         @endforeach
@@ -71,7 +94,11 @@
     </tbody>
     <tfoot>
       <tr>
-        <th colspan="6" class="text-center">Search Food</th>
+        <th colspan="6">
+          <div class="d-flex justify-content-center mt-2">
+            {{ $results->links() }}
+          </div>
+        </th>
       </tr>
     </tfoot>
   </table>
