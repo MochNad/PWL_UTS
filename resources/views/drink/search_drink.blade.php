@@ -71,7 +71,11 @@
     </tbody>
     <tfoot>
       <tr>
-        <th colspan="6" class="text-center">Search Drink</th>
+        <th colspan="6">
+          <div class="d-flex justify-content-center mt-2">
+            {{ $results->links() }}
+          </div>
+        </th>
       </tr>
     </tfoot>
   </table>

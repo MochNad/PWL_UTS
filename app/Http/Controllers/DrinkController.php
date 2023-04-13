@@ -145,10 +145,12 @@ class drinkController extends Controller
             $query->where('harga', 'LIKE', "$keyword");
         }
 
-        $results = $query->get();
+        $results = $query->paginate(10);
+    $results->appends(request()->query());
 
         return view('drink.search_drink', ['results' => $results])
             ->with('countFood', $countFood)
             ->with('countDrink', $countDrink);
     }
+
 }
